@@ -16,7 +16,7 @@ function cacheBundle(url, bundle, callback) {
   console.log('Sent post request to ' + cacheServer);
   request
   .post(cacheServer + '/store')
-  .send({url: url, bundle: bundle})
+  .send({url: url, bundle: "test"})
   .end(callback);
 }
 
@@ -44,16 +44,16 @@ function reportDone(pid) {
  */
 function bundle(url, pid) {
   bundler.makeBundle(url, function (err, bundle) {
-    if (err) {
+    //if (err) {
       // In the case that we fail to compile a bundle, we report to CeNo client that
       // the process is finished without caching anything so that the process
       // will be restarted by the cache server when CeNo client requests the bundle.
-      reportDone(pid);
-    } else {
+    //  reportDone(pid);
+    //} else {
       // Here, again, we report that the caching is done to the CeNo client so that
       // the cache server will restart the bundle process if it failed to cache the bundle.
       cacheBundle(url, bundle, function () { reportDone(pid); });
-    }
+    //}
   });
 }
 
